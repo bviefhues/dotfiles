@@ -1,12 +1,15 @@
 CWD != pwd
 HOME != echo $$HOME
 
-LINKFILES = vimrc
+DOTFILES = vimrc bash_profile bashrc
 
-all: links
+all: pull links
+
+links: 
+	for DOTFILE in $(DOTFILES) ; do \
+		ln -svf $(CWD)/$$DOTFILE $(HOME)/.$$DOTFILE; \
+	done
 
 pull:
 	git pull
 
-links: $(LINKFILES)
-	ln -svf $(CWD)/$(LINKFILES) $(HOME)/.$(LINKFILES)
