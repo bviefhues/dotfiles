@@ -9,11 +9,17 @@ umask 022 # default: only user can write
 case `uname` in
     FreeBSD)
         alias ts='tail -f /var/log/messages'
+        export EDITOR=/usr/local/bin/vim
+        export VISUAL=/usr/local/bin/vim
         ;;
     Linux)
         alias ts='tail -f /var/log/syslog'
+        export EDITOR=/usr/bin/vim
+        export VISUAL=/usr/bin/vim
         ;;
     Darwin) # OS X
+        export EDITOR=/usr/bin/vim
+        export VISUAL=/usr/bin/vim
         ;;
 esac
 
