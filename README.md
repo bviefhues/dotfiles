@@ -1,4 +1,6 @@
-# dotfiles - Configuration repository for Linux, FreeBSD and OS X shell environments
+# dotfiles 
+
+Configuration repository for Linux, FreeBSD and OS X shell environments
 
 ## Initial User Configuration
 
@@ -22,7 +24,7 @@ git config --global user.email "bviefhues@users.noreply.github.com"
 git clone https://github.com/bviefhues/dotfiles
 ```
 
-### Update to latest version
+## Update to latest version
 
 ```
 make
