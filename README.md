@@ -15,18 +15,20 @@ password <GitHub password>
 ### git Configuration and initial Pull
 
 ```
-# for git version 2.x:
+# next command for git version 2.x to get rid of the warning:
 git config --global push.default simple
 
 git config --global user.name "bviefhues"
 git config --global user.email "bviefhues@users.noreply.github.com"
 
+cd ~
 git clone https://github.com/bviefhues/dotfiles
 ```
 
 ## Update to latest version
 
 ```
+cd ~/dotfiles
 make
 ```
 
