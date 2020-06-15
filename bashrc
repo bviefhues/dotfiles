@@ -24,3 +24,4 @@ case `uname` in
         ;;
 esac
 
+alias tg="telegram -C -W -e dialog_list|grep User|grep -v '0 unread'|grep -v config|sed 's/^User //' && echo '.' && sleep 2 && clear"

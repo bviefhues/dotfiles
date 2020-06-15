@@ -16,6 +16,9 @@ set nocompatible
 
 colorscheme ron
 
+"let &colorcolumn=join(range(81,120),",")
+"highlight ColorColumn ctermbg=Grey guibg=#888888
+
 syntax on "syntax highlighting
 
 filetype plugin indent on
@@ -56,8 +59,8 @@ set nobackup "get rid of ~file
 set wrap "break long lines
 
 if has("gui_running")
-    set lines=60
-    set guifont=Consolas:h12
+    "set lines=60
+    set guifont=Menlo:h16
     set guioptions-=m "remove menu bar
     set guioptions-=T "remove toolbar
     set guioptions-=lL "remove left scrollbar
