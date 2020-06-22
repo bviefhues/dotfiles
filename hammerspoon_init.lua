@@ -1,8 +1,11 @@
 log = hs.logger.new("init", "debug")
 
+
 hyper = {"ctrl", "alt", "cmd"}
 
+--
 -- open applications
+--
 
 function open(name)
     return function()
@@ -25,19 +28,24 @@ hs.hotkey.bind(hyper, "P", open("Microsoft Powerpoint"))
 hs.hotkey.bind(hyper, "W", open("WhatsApp"))
 hs.hotkey.bind(hyper, "H", open("Chat"))
 hs.hotkey.bind(hyper, "N", open("Nachrichten"))
-hs.hotkey.bind(hyper, "S", open("Slack"))
+hs.hotkey.bind(hyper, "L", open("Slack"))
+hs.hotkey.bind(hyper, "S", open("Spotify"))
 hs.hotkey.bind(hyper, "M", open("Mail"))
 hs.hotkey.bind(hyper, "K", open("Google Calendar"))
 
 
+--
 -- clipboard
+--
 
 hs.hotkey.bind({"cmd", "shift"}, "V", function() 
     hs.eventtap.keyStrokes(hs.pasteboard.getContents()) 
 end)
 
 
+--
 -- window management
+--
 
 function win_size(size, win)
     if size == nil then
@@ -132,8 +140,65 @@ mail_window_filter:subscribe(
     mail_window_destroyed)
 
 
+
+previous_window = nil
+current_window = nil
+
+hs.hotkey.bind(hyper, "-", function()
+    if previous_window and current_window then
+        win_size("top50", current_window)
+        win_size("bottom50", previous_window)
+    else
+        hs.alert.show("Did not yet remember windows", 1)
+    end
+end)
+
+hs.hotkey.bind(hyper, ",", function()
+    if previous_window and current_window then
+        win_size("left50", current_window)
+        win_size("right50", previous_window)
+    else
+        hs.alert.show("Did not yet remember windows", 1)
+    end
+end)
+
+function previous_window_remember(window, app_name, event)
+    previous_window = current_window
+    current_window = window
+end
+
+previous_window_filter = hs.window.filter.new(true)
+previous_window_filter:subscribe(
+    hs.window.filter.windowFocused,
+    previous_window_remember)
+
+
+--    
 -- disable cmd-q
+--
 
 hs.hotkey.bind("cmd", "Q", function()
     hs.alert.show("Cmd+Q is disabled", 1)
 end)
+
+
+--
+-- automatically reload hammerspoon config
+--
+
+function reloadConfig(files)
+    doReload = false
+    for _,file in pairs(files) do
+        if file:sub(-4) == ".lua" then
+            doReload = true
+        end
+    end
+    if doReload then
+        hs.reload()
+    end
+end
+
+reload_watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/dotfiles/", reloadConfig):start()
+hs.alert.show("Hammerspoon config loaded")
+
+
