@@ -19,9 +19,9 @@ links: checklinks
 
 hammerspoon:
 	# only for macOS
-	if [[ `uname` == 'Darwin' ]]; then
-		mkdir -pv ~/.hammerspoon
-		ln -svf `pwd`/hammerspoon_init.lua ~/.hammerspoon/init.lua
+	if [[ `uname` == "Darwin" ]]; then \
+		mkdir -pv ~/.hammerspoon; \
+		ln -svf `pwd`/hammerspoon_init.lua ~/.hammerspoon/init.lua; \
 	fi
 
 pull:
