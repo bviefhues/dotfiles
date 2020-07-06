@@ -1,3 +1,6 @@
+# brew bundle
+# vi: ft=sh
+
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
@@ -12,11 +15,10 @@ brew "ffmpeg"
 brew "htop"
 brew "id3v2"
 brew "imagemagick"
-brew "macvim", link: false
 brew "midnight-commander"
 brew "ncdu"
 brew "perl"
-brew "switchaudio-osx"
+#brew "switchaudio-osx"
 brew "telegram-cli"
 brew "tmux"
 brew "vim"
@@ -27,7 +29,6 @@ cask "hammerspoon"
 cask "iina"
 cask "karabiner-elements"
 cask "keka"
-cask "macvim"
 cask "mpv"
 cask "skype"
 cask "stats"
@@ -37,11 +38,19 @@ cask "dropbox"
 cask "firefox"
 cask "bbedit"
 cask "grandperspective"
-cask "skype-for-business"
 cask "rocket-typist"
 cask "bettertouchtool"
 cask "bartender"
-cask "google-chat"
 cask "itsycal"
-cask "google-drive-file-stream"
-cask "karabiner-elements"
+cask "the-unarchiver"
+cask "whatsapp"
+cask "automute"
+
+mas "CopyClip", id: 595191960
+mas "2048 Game", id: 871033113
+mas "Clean", id: 418412301
+mas "1Password", id: 443987910
+mas "Battery Stats for AirPods", id: 1405763798
+mas "TaskTab", id: 1395414535
+mas "Byword", id: 420212497
+#mas "XCode", id: 497799835
