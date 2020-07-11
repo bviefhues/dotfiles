@@ -53,4 +53,5 @@ mas "1Password", id: 443987910
 mas "Battery Stats for AirPods", id: 1405763798
 mas "TaskTab", id: 1395414535
 mas "Byword", id: 420212497
+mas "Moom", id: 419330170
 #mas "XCode", id: 497799835
