@@ -1,5 +1,5 @@
 log = hs.logger.new("init", "debug")
-
+hs.console.darkMode(true)
 
 hyper = {"ctrl", "alt", "cmd"}
 
@@ -38,7 +38,14 @@ hs.hotkey.bind(hyper, "K", open("Google Calendar"))
 -- clipboard
 --
 
+-- ctrl-v pasteboard, remove formatting
 hs.hotkey.bind({"cmd", "shift"}, "V", function() 
+    -- hs.eventtap.keyStrokes(hs.pasteboard.getContents()) 
+    hs.eventtap.keyStroke({"cmd"}, "v")
+end)
+
+-- type pasteboard, remove formatting
+hs.hotkey.bind({"cmd", "alt"}, "V", function() 
     hs.eventtap.keyStrokes(hs.pasteboard.getContents()) 
 end)
 
@@ -112,7 +119,7 @@ mail_main_window = nil -- remember the mail main window across callbacks
 function mail_window_created(window, app_name, event)
     -- find out which window is Mail's main window, by by getting a list 
     -- of Mail windows, sorted by creation date. First window is
-    -- the Mail's main window
+    -- Mail's main window
     f = hs.window.filter.new(false):setAppFilter("Mail")
     mail_windows = f:getWindows(hs.window.filter.sortByCreated)
     mail_main_window = mail_windows[1] -- first window is main window
@@ -123,11 +130,23 @@ function mail_window_created(window, app_name, event)
 end
 
 function mail_window_destroyed(window, app_name, event)
-    if mail_main_window then -- we know the main window
-        if window ~= mail_main_window then -- we do not close main window
-            win_size("full", mail_main_window)
-        end
+    if not mail_main_window then -- we know the main window
+        return
     end
+
+    if window == mail_main_window then -- we do not close main window
+        return
+    end
+
+    local f = mail_main_window:frame()
+    local screen = win:screen()
+    local max = screen:frame()
+
+    if max.w > 1680 then -- do not fullscreen again on big screen
+        return
+    end
+
+    win_size("full", mail_main_window)
 end
 
 -- register callbacks for create and destroy of all Mail windows
@@ -140,6 +159,9 @@ mail_window_filter:subscribe(
     mail_window_destroyed)
 
 
+-- convenience function for splitting two windows horizontally or 
+-- vertically. Remembers previous window and uses that to position 
+-- current and previous window.
 
 previous_window = nil
 current_window = nil
