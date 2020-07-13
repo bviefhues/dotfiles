@@ -130,7 +130,7 @@ function mail_window_created(window, app_name, event)
 end
 
 function mail_window_destroyed(window, app_name, event)
-    if not mail_main_window then -- we know the main window
+    if mail_main_window == nil then -- we don't know the main window
         return
     end
 
@@ -138,10 +138,8 @@ function mail_window_destroyed(window, app_name, event)
         return
     end
 
-    local f = mail_main_window:frame()
-    local screen = win:screen()
+    local screen = mail_main_window:screen()
     local max = screen:frame()
-
     if max.w > 1680 then -- do not fullscreen again on big screen
         return
     end
