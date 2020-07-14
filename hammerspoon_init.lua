@@ -41,7 +41,7 @@ hs.hotkey.bind(hyper, "K", open("Google Calendar"))
 -- ctrl-v pasteboard, remove formatting
 hs.hotkey.bind({"cmd", "shift"}, "V", function() 
     -- hs.eventtap.keyStrokes(hs.pasteboard.getContents()) 
-    hs.eventtap.keyStroke({"cmd"}, "v")
+    hs.eventtap.keyStroke('cmd', 'v')
 end)
 
 -- type pasteboard, remove formatting

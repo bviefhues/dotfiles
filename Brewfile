@@ -45,6 +45,7 @@ cask "itsycal"
 cask "the-unarchiver"
 cask "whatsapp"
 cask "automute"
+cask "friedrichweise/wechsel/wechsel"
 
 mas "CopyClip", id: 595191960
 mas "2048 Game", id: 871033113
