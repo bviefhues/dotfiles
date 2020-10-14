@@ -1,0 +1,9 @@
+# vi: ft=sh
+
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+
+cask "skype-for-business"
+cask "google-chat"
+cask "google-drive-file-stream"

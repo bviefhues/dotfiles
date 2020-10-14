@@ -1,6 +1,6 @@
 DOTFILES = vimrc bash_profile bashrc
 
-all: pull links
+all: pull links hammerspoon karabiner
 
 checklinks:
 	# ensure that we do not overwrite possibly existing regular files
@@ -16,6 +16,20 @@ links: checklinks
 	for DOTFILE in $(DOTFILES); do \
 		ln -svf `pwd`/$$DOTFILE ~/.$$DOTFILE; \
 	done
+
+hammerspoon:
+	# only for macOS
+	if [[ `uname` == "Darwin" ]]; then \
+		mkdir -pv ~/.hammerspoon; \
+		ln -svf `pwd`/hammerspoon_init.lua ~/.hammerspoon/init.lua; \
+	fi
+
+karabiner:
+	# only for macOS
+	if [[ `uname` == "Darwin" ]]; then \
+		mkdir -pv ~/.config/karabiner; \
+		ln -svf `pwd`/karabiner.json ~/.config/karabiner/karabiner.json; \
+	fi
 
 pull:
 	git pull
