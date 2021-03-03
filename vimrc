@@ -67,3 +67,6 @@ if has("gui_running")
     set guioptions-=rR "remove right scrollbar
 endif
 
+" Reopen the last edited position in files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+ 
