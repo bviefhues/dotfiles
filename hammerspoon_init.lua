@@ -19,6 +19,8 @@ hs.loadSpoon("TilingWindowManager")
     :setLogLevel("debug")
     :bindHotkeys({
         tile =        {hyper, "t"},
+        incMainRatio = {hyper, "p"},
+        decMainRatio = {hyper, "o"},
         focusNext =   {hyper, "k"},
         focusPrev =   {hyper, "j"},
         swapNext =    {hyper, "l"},
@@ -32,13 +34,13 @@ hs.loadSpoon("TilingWindowManager")
     :start({
         menubar = false,
         dynamic = true,
-        tilingModes = {
-            spoon.TilingWindowManager.tilingMode.fullscreen,
-            spoon.TilingWindowManager.tilingMode.tall,
-            spoon.TilingWindowManager.tilingMode.wide,
-            spoon.TilingWindowManager.tilingMode.floating,
+        layouts = {
+            spoon.TilingWindowManager.layouts.fullscreen,
+            spoon.TilingWindowManager.layouts.tall,
+            spoon.TilingWindowManager.layouts.wide,
+            spoon.TilingWindowManager.layouts.floating,
         },
-        displayMode = true,
+        displayLayout = true,
         fullscreenRightApps = {
             "Slack",
             "WhatsApp",
@@ -76,6 +78,8 @@ hs.loadSpoon("MiroWindowsManager")
 
 hs.loadSpoon("ReloadConfiguration"):
 start()
+
+--hs.hotkey.bind(hyper, "r", hs.reload())
 
 --hs.window.highlight.ui.overlayColor = {0.5,0.5,0.5,0.25}
 --hs.window.highlight.ui.overlay=true
