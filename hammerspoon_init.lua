@@ -18,18 +18,20 @@ package.path = package.path .. ";" ..
 hs.loadSpoon("TilingWindowManager")
     :setLogLevel("debug")
     :bindHotkeys({
-        tile =        {hyper, "t"},
-        incMainRatio = {hyper, "p"},
-        decMainRatio = {hyper, "o"},
-        focusNext =   {hyper, "k"},
-        focusPrev =   {hyper, "j"},
-        swapNext =    {hyper, "l"},
-        swapPrev =    {hyper, "h"},
-        toggleFirst = {hyper, "return"},
-        tall =        {hyper, ","},
-        fullscreen =  {hyper, "."},
-        wide =        {hyper, "-"},
-        display =     {hyper, "i"},
+        tile =           {hyper, "t"},
+        incMainRatio =   {hyper, "p"},
+        decMainRatio =   {hyper, "o"},
+        incMainWindows = {hyper, "u"},
+        decMainWindows = {hyper, "z"},
+        focusNext =      {hyper, "k"},
+        focusPrev =      {hyper, "j"},
+        swapNext =       {hyper, "l"},
+        swapPrev =       {hyper, "h"},
+        toggleFirst =    {hyper, "return"},
+        tall =           {hyper, ","},
+        fullscreen =     {hyper, "."},
+        wide =           {hyper, "-"},
+        display =        {hyper, "i"},
     })
     :start({
         menubar = false,
