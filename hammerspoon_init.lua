@@ -12,26 +12,43 @@ local hyperShift = {"ctrl", "alt", "cmd", "shift"}
 
 package.path = package.path .. ";" ..
     hs.configdir .. "/../Spoons/Source/?.spoon/init.lua;" ..
-    hs.configdir .. "/../mySpoons/?.spoon/init.lua"
+    hs.configdir .. "/../mySpoons/?.spoon/init.lua;" 
+--    hs.configdir .. "/../hammerspoon-config-take2/_scratch/mcSpacesAxuielement.lua;"
+
+--window_filter_test = hs.window.filter.new()
+--  window_filter_test:setDefaultFilter()
+--    :setOverrideFilter({
+--      fullscreen = false,
+--      currentSpace = true,
+--      allowRoles = {'AXStandardWindow'}
+--    })
+--    :subscribe({
+--      hs.window.filter.windowsChanged,
+--      hs.window.filter.windowMinimized,
+--      hs.window.filter.windowVisible,
+--      hs.window.filter.windowCreated,
+--      hs.window.filter.windowDestroyed,
+--      hs.window.filter.windowHidden,
+--    }, function(_, app_name, event) 
+--        print("Window filter event " .. event .. " for application " .. app_name)
+--    end)
 
 
 hs.loadSpoon("TilingWindowManager")
-    :setLogLevel("debug")
+    --:setLogLevel("debug")
     :bindHotkeys({
-        tile =           {hyper, "t"},
-        incMainRatio =   {hyper, "p"},
-        decMainRatio =   {hyper, "o"},
-        incMainWindows = {hyper, "u"},
-        decMainWindows = {hyper, "z"},
-        focusNext =      {hyper, "k"},
-        focusPrev =      {hyper, "j"},
-        swapNext =       {hyper, "l"},
-        swapPrev =       {hyper, "h"},
-        toggleFirst =    {hyper, "return"},
-        tall =           {hyper, ","},
-        fullscreen =     {hyper, "."},
-        wide =           {hyper, "-"},
-        display =        {hyper, "i"},
+        tile =        {hyper, "t"},
+        incMainRatio = {hyper, "p"},
+        decMainRatio = {hyper, "o"},
+        focusNext =   {hyper, "k"},
+        focusPrev =   {hyper, "j"},
+        swapNext =    {hyper, "l"},
+        swapPrev =    {hyper, "h"},
+        toggleFirst = {hyper, "return"},
+        tall =        {hyper, ","},
+        fullscreen =  {hyper, "."},
+        wide =        {hyper, "-"},
+        display =     {hyper, "i"},
     })
     :start({
         menubar = false,
@@ -44,16 +61,17 @@ hs.loadSpoon("TilingWindowManager")
         },
         displayLayout = true,
         fullscreenRightApps = {
-            "Slack",
+            "com.tinyspeck.slackmacgap", -- Slack
             "WhatsApp",
-            "Google Chat",
-            "Hammerspoon",
-            "Nachrichten",
+            "org.hammerspoon.Hammerspoon",
+            "com.apple.MobileSMS", -- Messages
         },
         floatApps = {
-            "Cisco AnyConnect Secure Mobility Client",
-            "Aktivitätsanzeige",
-            "Notizzettel",
+            "com.apple.systempreferences",
+            "com.apple.ActivityMonitor",
+            "com.dmitrynikolaev.numi",
+            "com.apple.Stickies",
+            "com.cisco.anyconnect.gui",
         }
     })
 
@@ -69,14 +87,15 @@ hs.loadSpoon("NamedSpacesMenu")
 --})
 
 hs.window.animationDuration = 0.0
-hs.loadSpoon("MiroWindowsManager")
-    :bindHotkeys({
-        up =         {hyperShift, "up"},
-        right =      {hyperShift, "right"},
-        down =       {hyperShift, "down"},
-        left =       {hyperShift, "left"},
-        fullscreen = {hyperShift, "."}
-    })
+
+--hs.loadSpoon("MiroWindowsManager")
+--    :bindHotkeys({
+--        up =         {hyperShift, "up"},
+--        right =      {hyperShift, "right"},
+--        down =       {hyperShift, "down"},
+--        left =       {hyperShift, "left"},
+--        fullscreen = {hyperShift, "."}
+--    })
 
 hs.loadSpoon("ReloadConfiguration"):
 start()
@@ -92,16 +111,31 @@ start()
 --    string:gsub("."), function
 --end
 
--- type pasteboard, remove formatting
+hs.hotkey.bind(hyper, "t", function()
+    local w = hs.window.focusedWindow()
+    if w then
+        local a = w:application()
+        if a then
+            n = a:name()
+            id = a:bundleID()
+            hs.alert.show(id)
+            hs.pasteboard.setContents(id)
+        end
+    end
+end)
+
+-- paste pasteboard, remove formatting
 hs.hotkey.bind({"cmd", "shift"}, "v", function() 
     local pb = hs.pasteboard.readString()
-    local msApp = hs.pasteboard.readAllData()["com.microsoft.appbundleid"] 
-    if msApp == "com.microsoft.Excel" then 
-        local pb_clean = ""
-        pb:gsub(".", function()
+    --hs.eventtap.keyStrokes(pb)
+    if pb then
+        hs.pasteboard.setContents(pb)
+        hs.timer.doAfter(0.3, function() 
+            hs.eventtap.keyStroke({"cmd"}, "v")
         end)
+    else
+        hs.alert.show("No text in pasteboard")
     end
-    hs.eventtap.keyStrokes(pb)
 end)
 
 -- disable cmd-q
